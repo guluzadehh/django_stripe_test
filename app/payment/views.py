@@ -30,7 +30,8 @@ class StripeSessionIdGenericAPIView(APIView):
             ],
             metadata={"item_id": item.id},
             mode="payment",
-            success_url="http://localhost:8000/",
+            success_url=settings.PAYMENT_SUCCESS_URL,
+            cancel_url=settings.PAYMENT_CANCEL_URL,
         )
 
         return Response({"stripe_session_id": checkout_session.id})
