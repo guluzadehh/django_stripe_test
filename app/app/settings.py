@@ -133,3 +133,7 @@ TESTING = len(sys.argv) > 1 and sys.argv[1] == "test"
 
 if TESTING:
     PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
+
+# Stripe
+STRIPE_PUBLISHABLE_KEY = config("STRIPE_PUBLISHABLE_KEY")
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
