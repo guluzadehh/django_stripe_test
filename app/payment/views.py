@@ -19,14 +19,14 @@ class StripeSessionIdGenericAPIView(APIView):
                 {
                     "price_data": {
                         "currency": "rub",
-                        "unit_amount_decimal": round(item.price * 100, 1),
+                        "unit_amount_decimal": item.price * 100,
                         "product_data": {
                             "name": item.name,
                             "description": item.description,
                         },
                     },
                     "quantity": 1,
-                }
+                },
             ],
             metadata={"item_id": item.id},
             mode="payment",
