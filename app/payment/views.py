@@ -1,6 +1,7 @@
 import stripe
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.views.generic import DetailView, TemplateView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import Item
@@ -33,3 +34,11 @@ class StripeSessionIdGenericAPIView(APIView):
         )
 
         return Response({"stripe_session_id": checkout_session.id})
+
+
+class SuccessView(TemplateView):
+    template_name = "payment/success.html"
+
+
+class CancelView(TemplateView):
+    template_name = "payment/cancel.html"
