@@ -42,3 +42,8 @@ class SuccessView(TemplateView):
 
 class CancelView(TemplateView):
     template_name = "payment/cancel.html"
+
+
+class ItemDetailView(DetailView):
+    model = Item
+    context_object_name = "item"

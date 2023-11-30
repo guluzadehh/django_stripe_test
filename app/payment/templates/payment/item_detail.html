@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+<script type="text/javascript">
+    var stripe = Stripe('pk_test_51OI8nbJz2dtRJ6J39LGZd8tN2LJMDgEk1WPrnXJOdDHd8W8BFqcXKhXTGIERRhRy6Z0htxkq98sJOBxKi5vBNBTI00eopGVGsZ');
+
+    function buyHandle(e) {
+        fetch(`/api/buy/${ e.getAttribute("data-item-id") }`)
+            .then(res => res.json())
+            .then(res => {
+                return stripe.redirectToCheckout({ sessionId: res.stripe_session_id })
+            })
+            .then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            });
+    }
+</script>
+
+<p>{{ item.name }}</p>
+<p>{{ item.description }}</p>
+<p>{{ item.price }}</p>
+<button onclick="buyHandle(this)" data-item-id="{{ item.id }}">Buy</button>
+{% endblock %}
