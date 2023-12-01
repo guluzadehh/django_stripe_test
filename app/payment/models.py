@@ -1,5 +1,6 @@
 from django.db import models
 from .managers import OrderManager
+from .utils import make_line_item
 
 
 class Item(models.Model):
@@ -14,20 +15,7 @@ class Order(models.Model):
     objects = OrderManager()
 
     def make_line_items(self) -> list[dict]:
-        def callback(item):
-            return {
-                "price_data": {
-                    "currency": "rub",
-                    "unit_amount_decimal": item.price * 100,
-                    "product_data": {
-                        "name": item.name,
-                        "description": item.description,
-                    },
-                },
-                "quantity": 1,
-            }
-
-        return list(map(callback, self.items.all()))
+        return list(map(make_line_item, self.items.all()))
 
     @property
     def price(self):
