@@ -9,6 +9,9 @@ class Item(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
+    def __str__(self) -> str:
+        return self.name
+
     def get_absolute_url(self) -> str:
         return reverse("payment:item-detail", kwargs={"pk": self.pk})
 
