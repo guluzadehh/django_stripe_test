@@ -4,5 +4,9 @@ from .views import StripeSessionIdGenericAPIView
 app_name = "api"
 
 urlpatterns = [
-    path("buy/<int:pk>/", StripeSessionIdGenericAPIView.as_view(), name="buy-item")
+    path(
+        "buy/<string:type>/<int:pk>/",
+        StripeSessionIdGenericAPIView.as_view(),
+        name="buy-item",
+    )
 ]

@@ -5,7 +5,7 @@
     var stripe = Stripe('pk_test_51OI8nbJz2dtRJ6J39LGZd8tN2LJMDgEk1WPrnXJOdDHd8W8BFqcXKhXTGIERRhRy6Z0htxkq98sJOBxKi5vBNBTI00eopGVGsZ');
 
     function buyHandle(e) {
-        fetch(`/api/buy/${ e.getAttribute("data-item-id") }`)
+        fetch(`/api/buy/item/${ e.getAttribute("data-item-id") }`)
             .then(res => res.json())
             .then(res => {
                 return stripe.redirectToCheckout({ sessionId: res.stripe_session_id })
