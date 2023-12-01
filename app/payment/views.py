@@ -44,3 +44,8 @@ class CancelView(TemplateView):
 class ItemDetailView(DetailView):
     model = Item
     context_object_name = "item"
+
+
+class OrderDetailView(DetailView):
+    model = Order
+    context_object_name = "order"
