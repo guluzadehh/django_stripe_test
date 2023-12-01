@@ -1,4 +1,5 @@
 from django.db import models
+from .managers import OrderManager
 
 
 class Item(models.Model):
@@ -9,6 +10,8 @@ class Item(models.Model):
 
 class Order(models.Model):
     items = models.ManyToManyField(Item, related_name="items")
+
+    objects = OrderManager()
 
     def make_line_items(self):
         def callback(item):
