@@ -25,5 +25,6 @@
 <p>{{ item.price }}</p>
 <br />
 {% endfor %}
+<p>Price: {{ order.price }}</p>
 <button onclick="buyHandle(this)" data-order-id="{{ order.id }}">Buy</button>
 {% endblock %}
