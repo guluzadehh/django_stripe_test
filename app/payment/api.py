@@ -5,7 +5,7 @@ app_name = "api"
 
 urlpatterns = [
     path(
-        "buy/<string:type>/<int:pk>/",
+        "buy/<str:type>/<int:pk>/",
         StripeSessionIdGenericAPIView.as_view(),
         name="buy-item",
     )

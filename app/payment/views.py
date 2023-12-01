@@ -18,7 +18,7 @@ class StripeSessionIdGenericAPIView(APIView):
             meta_data = {"order_id": order.id}
         else:
             item = get_object_or_404(Item, id=kwargs["pk"])
-            line_items = make_line_item(item)
+            line_items = [make_line_item(item)]
             meta_data = {"item_id": item.id}
 
         checkout_session = stripe.checkout.Session.create(
@@ -48,4 +48,5 @@ class ItemDetailView(DetailView):
 
 class OrderDetailView(DetailView):
     model = Order
+    queryset = Order.objects.all()
     context_object_name = "order"
