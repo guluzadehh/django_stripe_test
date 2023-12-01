@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from .managers import OrderManager
 from .utils import make_line_item
 
@@ -7,6 +8,9 @@ class Item(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
+
+    def get_absolute_url(self) -> str:
+        return reverse("payment:item-detail", kwargs={"pk": self.pk})
 
 
 class Order(models.Model):
