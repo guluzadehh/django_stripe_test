@@ -13,7 +13,7 @@ class Order(models.Model):
 
     objects = OrderManager()
 
-    def make_line_items(self):
+    def make_line_items(self) -> list[dict]:
         def callback(item):
             return {
                 "price_data": {
@@ -27,8 +27,8 @@ class Order(models.Model):
                 "quantity": 1,
             }
 
-        return list(map(callback, self.items))
+        return list(map(callback, self.items.all()))
 
     @property
     def price(self):
-        return sum(item.price for item in self.items)
+        return sum(item.price for item in self.items.all())
