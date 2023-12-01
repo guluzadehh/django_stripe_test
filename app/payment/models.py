@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MaxValueValidator
 from .managers import OrderManager
 from .utils import make_line_item
 
@@ -16,8 +17,16 @@ class Item(models.Model):
         return reverse("payment:item-detail", kwargs={"pk": self.pk})
 
 
+class Discount(models.Model):
+    percent_off = models.PositiveSmallIntegerField(validators=[MaxValueValidator(99)])
+
+    def __str__(self) -> str:
+        return str(self.percent_off)
+
+
 class Order(models.Model):
     items = models.ManyToManyField(Item, related_name="items")
+    discount = models.OneToOneField(Discount, on_delete=models.SET_NULL, null=True)
 
     objects = OrderManager()
 
@@ -27,3 +36,7 @@ class Order(models.Model):
     @property
     def price(self):
         return sum(item.price for item in self.items.all())
+
+    @property
+    def clear_price(self):
+        return self.price - self.price * self.discount.percent_off / 100

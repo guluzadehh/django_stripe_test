@@ -4,4 +4,6 @@ from django.db.models.query import QuerySet
 
 class OrderManager(Manager):
     def get_queryset(self) -> QuerySet:
-        return super().get_queryset().prefetch_related("items")
+        return (
+            super().get_queryset().prefetch_related("items").select_related("discount")
+        )

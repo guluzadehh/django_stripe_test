@@ -16,14 +16,20 @@ class StripeSessionIdGenericAPIView(APIView):
             order = get_object_or_404(Order, id=kwargs["pk"])
             line_items = order.make_line_items()
             meta_data = {"order_id": order.id}
+            coupon = stripe.Coupon.create(
+                percent_off=order.discount.percent_off,
+            )
+            discounts = [{"coupon": coupon.id}]
         else:
             item = get_object_or_404(Item, id=kwargs["pk"])
             line_items = [make_line_item(item)]
             meta_data = {"item_id": item.id}
+            discounts = []
 
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=["card"],
             line_items=line_items,
+            discounts=discounts,
             metadata=meta_data,
             mode="payment",
             success_url=settings.PAYMENT_SUCCESS_URL,
