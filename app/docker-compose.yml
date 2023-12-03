@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    entrypoint: ./entrypoint.sh
+    env_file:
+      - .env
+    volumes:
+      - .:/wd
+    ports:
+      - "8000:8000"
