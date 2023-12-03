@@ -12,7 +12,3 @@ COPY requirements.txt /wd
 RUN pip install -r requirements.txt
 
 COPY . /wd
-
-# RUN sh -c "cd app/ && python manage.py makemigrations && python manage.py migrate"
-
-# CMD [ "python", "app/manage.py", "runserver", "0.0.0.0:8000"]
