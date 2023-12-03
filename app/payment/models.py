@@ -26,7 +26,7 @@ class Discount(models.Model):
 
 class Order(models.Model):
     items = models.ManyToManyField(Item, related_name="items")
-    discount = models.OneToOneField(Discount, on_delete=models.SET_NULL, null=True)
+    discount = models.ForeignKey(Discount, on_delete=models.SET_NULL, null=True)
 
     objects = OrderManager()
 
